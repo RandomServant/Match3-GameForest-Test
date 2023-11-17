@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Match3
 {
-    internal struct Vector2
+    public struct Vector2
     {
         public int X { get; }
         public int Y { get; }

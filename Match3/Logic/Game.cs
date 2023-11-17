@@ -8,7 +8,7 @@ using static System.Windows.Forms.AxHost;
 
 namespace Match3
 {
-    internal class Game
+    public class Game
     {
         private readonly GameWindow _window;
         private readonly Grid _grid;
@@ -23,7 +23,7 @@ namespace Match3
 
         public void SelectElement(Vector2 id)
         {
-
+            
         }
     }
 }

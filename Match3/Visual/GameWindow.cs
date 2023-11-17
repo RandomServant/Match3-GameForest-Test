@@ -15,10 +15,11 @@ namespace Match3
     {
         private const int _gridSize = 8;
         private const int _cellGridSize = 65;
+        private Color _selectColor = Color.Aqua;
 
         private readonly Game _game;
 
-        private readonly Dictionary<Vector2, Image> _images;
+        private readonly Dictionary<Vector2, PictureBox> _images;
 
         public GameWindow()
         {
@@ -28,6 +29,8 @@ namespace Match3
                 _cellGridSize * (_gridSize + 1) + SystemInformation.CaptionHeight);
 
             _game = new Game(this, _gridSize);
+
+            _images = new Dictionary<Vector2, PictureBox>();
 
             CreateGridLayout();
         }
@@ -59,6 +62,7 @@ namespace Match3
                     picture.Click += GridClick;
 
                     gridLayout.Controls.Add(picture, i, j);
+                    _images[position] = picture;
                 }
             }
         }
@@ -68,6 +72,16 @@ namespace Match3
 
             Vector2 id = Vector2.StringToVector2(element.Tag);
             _game.SelectElement(id);
+        }
+
+        public void MarkSelected(Vector2 id)
+        {
+            _images[id].BackColor = _selectColor;
+        }
+
+        public void MarkDeselected(Vector2 id)
+        {
+            _images[id].BackColor = this.BackColor;
         }
     }
 }

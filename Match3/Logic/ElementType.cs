@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Match3
 {
-    internal enum ElementType
+    public enum ElementType
     {
         Red,
         Green,

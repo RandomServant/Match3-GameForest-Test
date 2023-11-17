@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Match3
 {
-    internal interface IElement
+    public interface IElement
     {
         ElementType Type { get; set; }
         Vector2 Position { get; set; }

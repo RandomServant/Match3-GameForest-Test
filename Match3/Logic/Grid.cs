@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Match3
 {
-    internal class Grid
+    public class Grid
     {
         private IElement[,] _elements;
         private int _gridSize;

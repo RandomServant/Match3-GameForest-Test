@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Match3
 {
-    internal class BaseElement : IElement
+    public class BaseElement : IElement
     {
         public ElementType Type { get; set; }
         public Vector2 Position { get; set; }
