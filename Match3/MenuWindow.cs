@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace Match3
 {
-    public partial class Form1 : Form
+    public partial class MenuWindow : Form
     {
-        public Form1()
+        public MenuWindow()
         {
             InitializeComponent();
+        }
+
+        private void PlayButton_Click(object sender, EventArgs e)
+        {
+            GameWindow GameForm = new GameWindow();
+            GameForm.Show();
+            this.Hide();
         }
     }
 }
