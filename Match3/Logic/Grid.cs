@@ -30,9 +30,10 @@ namespace Match3
             {
                 for(int j = 0; j < _gridSize; j++)
                 {
-                    if(elementTypes == null)
+                    if (_elements[i, j] == null || _elements[i, j].IsNull)
                     {
                         ElementType randomType = (ElementType)elementTypes.GetValue(_random.Next(elementTypes.Length));
+
                         _elements[i, j] = new BaseElement(randomType, new Vector2(i, j));
                     }
                 }
@@ -40,5 +41,6 @@ namespace Match3
         }
 
         public IElement GetElement(Vector2 position) => _elements[position.X, position.Y];
+        
     }
 }

@@ -27,7 +27,7 @@ namespace Match3
             this.Size = new Size(_cellGridSize * (_gridSize + 1), 
                 _cellGridSize * (_gridSize + 1) + SystemInformation.CaptionHeight);
 
-            _game = new Game(this, _gridSize); 
+            _game = new Game(this, _gridSize);
 
             CreateGridLayout();
         }
@@ -47,14 +47,14 @@ namespace Match3
             {
                 for (int j = 0; j < _gridSize; j++)
                 {
-                    Vector2 positon = new Vector2(i, j);
+                    Vector2 position = new Vector2(i, j);
 
                     var picture = new PictureBox
                     {
                         Size = new Size(_cellGridSize, _cellGridSize),
                         SizeMode = PictureBoxSizeMode.StretchImage,
-                        Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Visual\Images\Red.png")),
-                        Tag = positon.ToString()
+                        Image = _game.GetElement(position).GetIconImage(),
+                        Tag = position.ToString()
                     };
                     picture.Click += GridClick;
 
