@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Match3.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace Match3
         private readonly GameWindow _window;
         private readonly Grid _grid;
 
+        private GameState _gameState = GameState.BeforeFirstClick;
+        private Vector2 _selectedPosition = Vector2.NullVector;
+
         public Game(GameWindow window, int gridSize)
         {
             _window = window;
@@ -23,7 +27,31 @@ namespace Match3
 
         public void SelectElement(Vector2 id)
         {
-            
+            if(_gameState == GameState.BeforeFirstClick)
+            {
+                _selectedPosition = id;
+                _window.MarkSelected(id);
+                _gameState = GameState.AfterFirstClick;
+            }
+            else if(_gameState == GameState.AfterFirstClick)
+            {
+                if(_selectedPosition.IsNearby(id))
+                {
+                    _gameState = GameState.Animation;
+                    SwapElements(id);
+                }
+                else
+                {
+                    _window.MarkDeselected(_selectedPosition);
+                }
+                _gameState = GameState.BeforeFirstClick;
+                _selectedPosition = Vector2.NullVector;
+            }
+        }
+
+        private void SwapElements(Vector2 position)
+        {
+            _grid.SwapElements(_selectedPosition, position);
         }
     }
 }

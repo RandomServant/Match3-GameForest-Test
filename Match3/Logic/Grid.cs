@@ -41,6 +41,16 @@ namespace Match3
         }
 
         public IElement GetElement(Vector2 position) => _elements[position.X, position.Y];
-        
+
+        public void SwapElements(Vector2 firstElementPosition, Vector2 secondElementPosition)
+        {
+            int x1 = firstElementPosition.X;
+            int y1 = firstElementPosition.Y;
+            int x2 = secondElementPosition.X;
+            int y2 = secondElementPosition.Y;
+
+            (_elements[x1, y1].Position, _elements[x2, y2].Position) = (_elements[x2, y2].Position, _elements[x1, y1].Position);
+            (_elements[x1, y1], _elements[x2, y2]) = (_elements[x2, y2], _elements[x1, y1]);
+        }
     }
 }

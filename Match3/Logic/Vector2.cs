@@ -8,6 +8,8 @@ namespace Match3
 {
     public struct Vector2
     {
+        public static readonly Vector2 NullVector = new Vector2(-1, -1);
+
         public int X { get; }
         public int Y { get; }
 
