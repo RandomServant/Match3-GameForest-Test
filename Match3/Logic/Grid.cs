@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Match3
 {
@@ -25,7 +26,7 @@ namespace Match3
         {
             var elementTypes = Enum.GetValues(typeof(ElementType));
 
-            for(int i = 0; i < _gridSize; i++)
+            for (int i = 0; i < _gridSize; i++)
             {
                 for(int j = 0; j < _gridSize; j++)
                 {
@@ -37,5 +38,7 @@ namespace Match3
                 }
             }
         }
+
+        public IElement GetElement(Vector2 position) => _elements[position.X, position.Y];
     }
 }

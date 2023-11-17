@@ -28,6 +28,14 @@ namespace Match3
             return $"[{X}; {Y}]";
         }
 
+        public static Vector2 StringToVector2(object obj)
+        {
+            string str = (string)obj;
+            string[] vectorParts = str.Replace("[", "").Replace("]", "").Split(';');
+
+            return new Vector2(int.Parse(vectorParts[0]), int.Parse(vectorParts[1]));
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is Vector2 vector)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 
 namespace Match3
@@ -16,6 +17,13 @@ namespace Match3
         {
             _window = window;
             _grid = new Grid(gridSize);
+        }
+
+        public IElement GetElement(Vector2 position) => _grid.GetElement(position);
+
+        public void SelectElement(Vector2 id)
+        {
+
         }
     }
 }

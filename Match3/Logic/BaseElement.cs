@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Match3
 {
@@ -29,28 +32,29 @@ namespace Match3
 
         public Image GetIconImage()
         {
-            Image icon;
+            string path;
 
             switch(Type)
             {
                 case ElementType.Red:
-                    icon = Image.FromFile("../Visual/Images/Red.png");
+                    path = @"..\..\Visual\Images\Red.png";
                     break;
                 case ElementType.Green:
-                    icon = Image.FromFile("../Visual/Images/Green.png");
+                    path = @"..\..\Visual\Images\Green.png";
                     break;
                 case ElementType.Blue:
-                    icon = Image.FromFile("../Visual/Images/Blue.png");
+                    path = @"..\..\Visual\Images\Blue.png";
                     break;
                 case ElementType.Yellow:
-                    icon = Image.FromFile("../Visual/Images/Yellow.png");
+                    path = @"..\..\Visual\Images\Yellow.png";
                     break;
                 default:
-                    icon = Image.FromFile("../Visual/Images/Orange.png");
+                    path = @"..\..\Visual\Images\Orange.png";
                     break;
             }
+            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
 
-            return icon;
+            return Image.FromFile(path);
         }
     }
 }
