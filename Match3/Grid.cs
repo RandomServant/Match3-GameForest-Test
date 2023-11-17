@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Match3
+{
+    internal class Grid
+    {
+        private IElement[,] _elements;
+        private int _gridSize;
+
+        private Random _random = new Random();
+
+        public Grid(int gridSize)
+        {
+            _gridSize = gridSize;
+            _elements = new IElement[_gridSize, _gridSize];
+
+            RandomFillGrid();
+        }
+
+        public void RandomFillGrid()
+        {
+            var elementTypes = Enum.GetValues(typeof(ElementType));
+
+            for(int i = 0; i < _gridSize; i++)
+            {
+                for(int j = 0; j < _gridSize; j++)
+                {
+                    if(elementTypes == null)
+                    {
+                        ElementType randomType = (ElementType)elementTypes.GetValue(_random.Next(elementTypes.Length));
+                        _elements[i, j] = new BaseElement(randomType, new Vector2(i, j));
+                    }
+                }
+            }
+        }
+    }
+}
