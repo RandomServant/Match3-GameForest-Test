@@ -12,9 +12,13 @@ namespace Match3
 {
     public partial class MenuWindow : Form
     {
+        public static MenuWindow Instance;
+
         public MenuWindow()
         {
             InitializeComponent();
+
+            Instance = this;
         }
 
         private void PlayButton_Click(object sender, EventArgs e)

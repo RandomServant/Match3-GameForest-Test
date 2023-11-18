@@ -34,6 +34,7 @@ namespace Match3.Logic
             if(_durrationOfGameInSeconds < 0)
             {
                 _timer.Stop();
+                _window.GameOver();
             }
             else
             {

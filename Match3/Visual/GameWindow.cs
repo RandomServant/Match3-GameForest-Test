@@ -1,4 +1,5 @@
 ﻿using Match3.Logic;
+using Match3.Visual;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -125,6 +126,13 @@ namespace Match3
         public void UpdateTimerText(string time)
         {
             TimerText.Text = time;
+        }
+
+        public void GameOver()
+        {
+            GameOverWindow gameOverWindow = new GameOverWindow();
+            gameOverWindow.Show();
+            this.Close();
         }
     }
 }
