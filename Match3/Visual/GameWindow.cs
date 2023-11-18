@@ -19,7 +19,10 @@ namespace Match3
 
         private readonly Game _game;
 
+        private readonly Dictionary<Vector2, Button> _buttons;
         private readonly Dictionary<Vector2, PictureBox> _images;
+
+        private bool _isWindowInitialized = false;
 
         public GameWindow()
         {
@@ -30,9 +33,42 @@ namespace Match3
 
             _game = new Game(this, _gridSize);
 
+            _buttons = new Dictionary<Vector2, Button>();
             _images = new Dictionary<Vector2, PictureBox>();
 
             CreateGridLayout();
+            UpdateVisual();
+        }
+
+        public void UpdateVisual()
+        {
+            for (int i = 0; i < _gridSize; i++)
+            {
+                for (int j = 0; j < _gridSize; j++)
+                {
+                    Vector2 position = new Vector2(i, j);
+                    if (Game.IsInitialized && _isWindowInitialized)
+                        this.Controls.Remove(_images[position]);
+
+                    IElement element = _game.GetElement(position);
+                    if (element.IsNull)
+                        continue;
+
+                    PictureBox image = new PictureBox
+                    {
+                        Image = element.GetIconImage(),
+                        Size = new Size(_cellGridSize, _cellGridSize),
+                        SizeMode = PictureBoxSizeMode.StretchImage,
+                        Location = _buttons[position].Location,
+                        Enabled = false
+                    };
+
+                    this.Controls.Add(image);
+                    image.BringToFront();
+                    _images[position] = image;
+                }
+            }
+            _isWindowInitialized = true;
         }
 
         private void CreateGridLayout()
@@ -52,23 +88,21 @@ namespace Match3
                 {
                     Vector2 position = new Vector2(i, j);
 
-                    var picture = new PictureBox
+                    Button button = new Button
                     {
                         Size = new Size(_cellGridSize, _cellGridSize),
-                        SizeMode = PictureBoxSizeMode.StretchImage,
-                        Image = _game.GetElement(position).GetIconImage(),
-                        Tag = position.ToString()
+                        Tag = position.ToString(),
                     };
-                    picture.Click += GridClick;
+                    button.Click += GridClick;
 
-                    gridLayout.Controls.Add(picture, i, j);
-                    _images[position] = picture;
+                    gridLayout.Controls.Add(button, i, j);
+                    _buttons[position] = button;
                 }
             }
         }
         private void GridClick(object sender, EventArgs e)
         {
-            var element = (PictureBox)sender;
+            Button element = (Button)sender;
 
             Vector2 id = Vector2.StringToVector2(element.Tag);
             _game.SelectElement(id);
