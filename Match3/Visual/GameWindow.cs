@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Match3.Logic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,6 +40,7 @@ namespace Match3
             CreateGridLayout();
             _game.Initialize();
             UpdateVisual();
+            _game.InitializeTimer();
         }
 
         public void UpdateVisual()
@@ -74,12 +76,13 @@ namespace Match3
 
         private void CreateGridLayout()
         {
-            TableLayoutPanel gridLayout = new TableLayoutPanel();
+            TableLayoutPanel gridLayout = new TableLayoutPanel
+            {
+                RowCount = _gridSize,
+                ColumnCount = _gridSize,
 
-            gridLayout.RowCount = _gridSize;
-            gridLayout.ColumnCount = _gridSize;
-
-            gridLayout.Size = new Size(_cellGridSize * (_gridSize + 1), _cellGridSize * (_gridSize + 1));
+                Size = new Size(_cellGridSize * (_gridSize + 1), _cellGridSize * (_gridSize + 1))
+            };
 
             this.Controls.Add(gridLayout);
 
@@ -117,6 +120,11 @@ namespace Match3
         public void MarkDeselected(Vector2 id)
         {
             _images[id].BackColor = this.BackColor;
+        }
+
+        public void UpdateTimerText(string time)
+        {
+            TimerText.Text = time;
         }
     }
 }

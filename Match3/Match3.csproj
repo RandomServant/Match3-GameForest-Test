@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +53,7 @@
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\Grid.cs" />
     <Compile Include="Logic\IElement.cs" />
+    <Compile Include="Logic\GameTimer.cs" />
     <Compile Include="Visual\Animator.cs" />
     <Compile Include="Visual\MenuWindow.cs">
       <SubType>Form</SubType>
