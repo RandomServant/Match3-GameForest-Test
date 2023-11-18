@@ -16,6 +16,7 @@ namespace Match3
         private readonly GameWindow _window;
         private readonly Grid _grid;
         private readonly GameTimer _gameTimer;
+        private readonly ScoreCounter scoreCounter;
 
         private GameState _gameState = GameState.BeforeFirstClick;
         private Vector2 _selectedPosition = Vector2.NullVector;
@@ -25,6 +26,7 @@ namespace Match3
             _window = window;
             _grid = new Grid(gridSize);
             _gameTimer = new GameTimer(window);
+            scoreCounter = new ScoreCounter(window);
         }
 
         public IElement GetElement(Vector2 position) => _grid.GetElement(position);

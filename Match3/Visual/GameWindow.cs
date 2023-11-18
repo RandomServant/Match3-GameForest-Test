@@ -24,7 +24,7 @@ namespace Match3
         private readonly Dictionary<Vector2, Button> _buttons;
         private readonly Dictionary<Vector2, PictureBox> _images;
 
-        private bool _isWindowInitialized = false;
+        public bool IsWindowInitialized = false;
 
         public GameWindow()
         {
@@ -51,7 +51,7 @@ namespace Match3
                 for (int j = 0; j < _gridSize; j++)
                 {
                     Vector2 position = new Vector2(i, j);
-                    if (Game.IsInitialized && _isWindowInitialized)
+                    if (Game.IsInitialized && IsWindowInitialized)
                         this.Controls.Remove(_images[position]);
 
                     IElement element = _game.GetElement(position);
@@ -72,7 +72,7 @@ namespace Match3
                     _images[position] = image;
                 }
             }
-            _isWindowInitialized = true;
+            IsWindowInitialized = true;
         }
 
         private void CreateGridLayout()
@@ -126,6 +126,10 @@ namespace Match3
         public void UpdateTimerText(string time)
         {
             TimerText.Text = time;
+        }
+        public void UpdateScoreText(string score)
+        {
+            ScoreText.Text = score;
         }
 
         public void GameOver()

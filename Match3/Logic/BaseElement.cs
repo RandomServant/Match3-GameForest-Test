@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Match3.Logic;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -27,6 +28,7 @@ namespace Match3
         {
             if (IsNull) return;
 
+            ScoreCounter.AddScore();
             IsNull = true;
         }
 
