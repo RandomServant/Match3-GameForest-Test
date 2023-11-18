@@ -37,6 +37,7 @@ namespace Match3
             _images = new Dictionary<Vector2, PictureBox>();
 
             CreateGridLayout();
+            _game.Initialize();
             UpdateVisual();
         }
 

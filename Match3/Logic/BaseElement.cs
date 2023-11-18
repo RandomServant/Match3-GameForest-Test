@@ -56,5 +56,10 @@ namespace Match3
 
             return Image.FromFile(path);
         }
+
+        public override string ToString()
+        {
+            return Type.ToString();
+        }
     }
 }

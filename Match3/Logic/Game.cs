@@ -11,6 +11,8 @@ namespace Match3
 {
     public class Game
     {
+        public static bool IsInitialized { get; private set; } = false;
+
         private readonly GameWindow _window;
         private readonly Grid _grid;
 
@@ -39,6 +41,7 @@ namespace Match3
                 {
                     _gameState = GameState.Animation;
                     SwapElements(id);
+                    _window.UpdateVisual();
                 }
                 else
                 {
@@ -52,6 +55,15 @@ namespace Match3
         private void SwapElements(Vector2 position)
         {
             _grid.SwapElements(_selectedPosition, position);
+        }
+
+        public void Initialize()
+        {
+            while (_grid.TryMatchAll())
+            {
+                _grid.RandomFillGrid();
+            }
+            IsInitialized = true;
         }
     }
 }

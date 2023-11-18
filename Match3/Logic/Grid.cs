@@ -9,6 +9,9 @@ namespace Match3
 {
     public class Grid
     {
+        private const int _matchCountForLine = 4;
+        private const int _matchCountForBomb = 5;
+
         private IElement[,] _elements;
         private int _gridSize;
 
@@ -52,5 +55,137 @@ namespace Match3
             (_elements[x1, y1].Position, _elements[x2, y2].Position) = (_elements[x2, y2].Position, _elements[x1, y1].Position);
             (_elements[x1, y1], _elements[x2, y2]) = (_elements[x2, y2], _elements[x1, y1]);
         }
+
+        private bool ExecuteMatch(Vector2 position, IElement firstElement)
+        {
+            var matchList = GetMatchList(position, firstElement.Type);
+
+            if (matchList.Count == 0)
+                return false;
+
+            if (Game.IsInitialized && !TrySetBonus(matchList, firstElement))
+            {
+                matchList.Add(firstElement);
+            }
+
+            foreach (var element in matchList)
+            {
+                element.Destroy(_elements);
+            }
+            return true;
+        }
+
+        private bool TrySetBonus(List<IElement> match, IElement elementToBonus)
+        {
+            bool isEnoughForBomb = match.Count >= _matchCountForBomb;
+            bool isEnoughForLine = match.Count == _matchCountForLine;
+
+            if (isEnoughForBomb)
+            {
+                // Создать бомбу
+                return false;
+            }
+            if (isEnoughForLine)
+            {
+                if (match[0].Position.X == elementToBonus.Position.X)
+                {
+                    // Создать вертикальную линию
+                }
+                else
+                {
+                    // Создать горизонтальную линию
+                }
+                return false;
+            }
+
+            return false;
+        }
+
+        private List<IElement> GetMatchList(Vector2 position, ElementType type)
+        {
+            int horizontalCounter = position.X + 1;
+            int verticalCounter = position.Y + 1;
+
+            var verticalLine = new List<IElement>();
+            var horizontalLine = new List<IElement>();
+
+            while (horizontalCounter < _gridSize)
+            {
+                if (_elements[horizontalCounter, position.Y].Type != type)
+                    break;
+
+                horizontalLine.Add(_elements[horizontalCounter, position.Y]);
+                horizontalCounter++;
+            }
+
+            while (verticalCounter < _gridSize)
+            {
+                if (_elements[position.X, verticalCounter].Type != type)
+                    break;
+
+                verticalLine.Add(_elements[position.X, verticalCounter]);
+                verticalCounter++;
+            }
+
+            horizontalCounter = position.X - 1;
+            verticalCounter = position.Y - 1;
+
+            while (horizontalCounter >= 0)
+            {
+                if (_elements[horizontalCounter, position.Y].Type != type)
+                    break;
+
+                horizontalLine.Add(_elements[horizontalCounter, position.Y]);
+                horizontalCounter--;
+            }
+
+            while (verticalCounter >= 0)
+            {
+                if (_elements[position.X, verticalCounter].Type != type)
+                    break;
+
+                verticalLine.Add(_elements[position.X, verticalCounter]);
+                verticalCounter--;
+            }
+
+            if (verticalLine.Count < 2)
+            {
+                verticalLine.Clear();
+            }
+            if (horizontalLine.Count < 2)
+            {
+                horizontalLine.Clear();
+            }
+
+            verticalLine.AddRange(horizontalLine);
+            return verticalLine;
+        }
+
+        public bool TryMatchAll()
+        {
+            bool isMatched = false;
+
+            for (int i = 0; i < _gridSize; i++)
+            {
+                for (int j = 0; j < _gridSize; j++)
+                {
+                    if (ExecuteMatch(new Vector2(i, j), _elements[i, j]))
+                    {
+                        isMatched = true;
+                    }
+                }
+            }
+            return isMatched;
+        }
+
+        public bool TryMatch(Vector2 firstPosition, Vector2 secondPosition)
+        {
+            var firstTry = ExecuteMatch(secondPosition, _elements[secondPosition.X, secondPosition.Y]);
+            var secondTry = ExecuteMatch(firstPosition, _elements[firstPosition.X, firstPosition.Y]);
+
+            return (firstTry || secondTry);
+        }
     }
+
+
 }
