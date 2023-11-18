@@ -52,6 +52,7 @@
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\Grid.cs" />
     <Compile Include="Logic\IElement.cs" />
+    <Compile Include="Visual\Animator.cs" />
     <Compile Include="Visual\MenuWindow.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -185,7 +185,31 @@ namespace Match3
 
             return (firstTry || secondTry);
         }
+
+        public void PushFiguresDown()
+        {
+            List<Vector2> moveFrom = new List<Vector2>();
+            List<Vector2> moveTo = new List<Vector2>();
+
+            for (int i = 0; i < _gridSize; i++)
+            {
+                int step = 0;
+
+                for (int j = _gridSize - 1; j >= 0; j--)
+                {
+                    if (_elements[i, j].IsNull)
+                    {
+                        step++;
+                    }
+                    else
+                    {
+                        SwapElements(new Vector2(i, j + step), new Vector2(i, j));
+
+                        moveFrom.Add(new Vector2(i, j));
+                        moveTo.Add(new Vector2(i, j + step));
+                    }
+                }
+            }
+        }
     }
-
-
 }

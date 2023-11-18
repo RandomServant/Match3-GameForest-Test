@@ -42,6 +42,28 @@ namespace Match3
                     _gameState = GameState.Animation;
                     SwapElements(id);
                     _window.UpdateVisual();
+                    if (_grid.TryMatch(_selectedPosition, id))
+                    {
+                        _window.MarkDeselected(_selectedPosition);
+                        _grid.PushFiguresDown();
+                        _window.UpdateVisual();
+                        _grid.RandomFillGrid();
+                        _window.UpdateVisual();
+
+                        while (_grid.TryMatchAll())
+                        {
+                            _grid.PushFiguresDown();
+                            _window.UpdateVisual();
+                            _grid.RandomFillGrid();
+                            _window.UpdateVisual();
+                        }
+                    }
+                    else
+                    {
+                        _window.MarkDeselected(_selectedPosition);
+                        SwapElements(id);
+                        _window.UpdateVisual();
+                    }
                 }
                 else
                 {
