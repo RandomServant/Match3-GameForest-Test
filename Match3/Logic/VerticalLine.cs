@@ -38,19 +38,19 @@ namespace Match3.Logic
             switch (Type)
             {
                 case ElementType.Red:
-                    path = @"..\..\Visual\Images\Red.png";
+                    path = @"..\..\Visual\Images\RedVertical.png";
                     break;
                 case ElementType.Green:
-                    path = @"..\..\Visual\Images\Green.png";
+                    path = @"..\..\Visual\Images\GreenVertical.png";
                     break;
                 case ElementType.Blue:
-                    path = @"..\..\Visual\Images\Blue.png";
+                    path = @"..\..\Visual\Images\BlueVertical.png";
                     break;
                 case ElementType.Yellow:
-                    path = @"..\..\Visual\Images\Yellow.png";
+                    path = @"..\..\Visual\Images\YellowVertical.png";
                     break;
                 default:
-                    path = @"..\..\Visual\Images\Orange.png";
+                    path = @"..\..\Visual\Images\OrangeVertical.png";
                     break;
             }
             path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
