@@ -15,7 +15,7 @@ namespace Match3
 {
     public partial class GameWindow : Form
     {
-        private const int _gridSize = 8;
+        public const int GridSize = 8;
         private const int _cellGridSize = 65;
         private Color _selectColor = Color.Aqua;
 
@@ -30,10 +30,10 @@ namespace Match3
         {
             InitializeComponent();
 
-            this.Size = new Size(_cellGridSize * (_gridSize + 1), 
-                _cellGridSize * (_gridSize + 1) + SystemInformation.CaptionHeight);
+            this.Size = new Size(_cellGridSize * (GridSize + 1), 
+                _cellGridSize * (GridSize + 1) + SystemInformation.CaptionHeight);
 
-            _game = new Game(this, _gridSize);
+            _game = new Game(this, GridSize);
 
             _buttons = new Dictionary<Vector2, Button>();
             _images = new Dictionary<Vector2, PictureBox>();
@@ -46,9 +46,9 @@ namespace Match3
 
         public void UpdateVisual()
         {
-            for (int i = 0; i < _gridSize; i++)
+            for (int i = 0; i < GridSize; i++)
             {
-                for (int j = 0; j < _gridSize; j++)
+                for (int j = 0; j < GridSize; j++)
                 {
                     Vector2 position = new Vector2(i, j);
                     if (Game.IsInitialized && IsWindowInitialized)
@@ -79,17 +79,17 @@ namespace Match3
         {
             TableLayoutPanel gridLayout = new TableLayoutPanel
             {
-                RowCount = _gridSize,
-                ColumnCount = _gridSize,
+                RowCount = GridSize,
+                ColumnCount = GridSize,
 
-                Size = new Size(_cellGridSize * (_gridSize + 1), _cellGridSize * (_gridSize + 1))
+                Size = new Size(_cellGridSize * (GridSize + 1), _cellGridSize * (GridSize + 1))
             };
 
             this.Controls.Add(gridLayout);
 
-            for (int i = 0; i < _gridSize; i++)
+            for (int i = 0; i < GridSize; i++)
             {
-                for (int j = 0; j < _gridSize; j++)
+                for (int j = 0; j < GridSize; j++)
                 {
                     Vector2 position = new Vector2(i, j);
 
