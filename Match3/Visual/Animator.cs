@@ -13,26 +13,64 @@ namespace Match3.Visual
     {
         public const int MoveAnimationDelayInMilliseconds = 300;
         public const int PushDownDelayInMilliseconds = 500;
-        public const int DestroyDelayInMilliseconds = 500;
+        public const int DestroyDelayInMilliseconds = 400;
         public const int VisualUpdateDelayInMilliseconds = 100;
 
         private const int _timerInterval = 40;
 
-        private Timer _timer;
+        private Timer _timerForMove;
+        private Timer _timerForDestroy;
 
         private Point _currentLocation;
         private Point _targetLocation;
         private Point _moveStep;
         private PictureBox _movableElement;
 
+        private Size _currentSize;
+        private Size _targetSize = new Size(0, 0);
+        private Size _sizeStep;
+        private PictureBox _destuctableElement;
+
         public Animator()
         {
-            _timer = new Timer
+            _timerForMove = new Timer
+            {
+                Interval = _timerInterval
+            };
+            _timerForDestroy = new Timer
             {
                 Interval = _timerInterval
             };
 
-            _timer.Tick += MoveTick;
+            _timerForMove.Tick += MoveTick;
+            _timerForDestroy.Tick += DestroyTick;
+        }
+
+        private void DestroyTick(object sender, EventArgs e)
+        {
+            _currentSize = _currentSize - _sizeStep;
+
+            if(_currentSize.Width <= _targetSize.Width)
+            {
+                _currentSize = _targetSize;
+                _timerForDestroy.Stop();
+            }
+            else
+            {
+                _destuctableElement.Size = _currentSize;
+            }
+        }
+
+        public void DestroyAnimation(PictureBox element)
+        {
+            _destuctableElement = element;
+            _currentSize = element.Size;
+
+            _sizeStep = new Size(
+                (_currentSize.Width - _targetSize.Width) / (DestroyDelayInMilliseconds / _timerInterval),
+                (_currentSize.Height - _targetSize.Height) / (DestroyDelayInMilliseconds / _timerInterval));
+
+            _timerForDestroy.Start();
         }
 
         private void MoveTick(object sender, EventArgs e)
@@ -44,7 +82,7 @@ namespace Match3.Visual
             if (Math.Abs(_targetLocation.X - _currentLocation.X) < MoveAnimationDelayInMilliseconds / _timerInterval &&
                 Math.Abs(_targetLocation.Y - _currentLocation.Y) < MoveAnimationDelayInMilliseconds / _timerInterval)
             {
-                _timer.Stop();
+                _timerForMove.Stop();
             }
         }
 
@@ -58,7 +96,7 @@ namespace Match3.Visual
                 (_targetLocation.X - _currentLocation.X) / (MoveAnimationDelayInMilliseconds / _timerInterval),
                 (_targetLocation.Y - _currentLocation.Y) / (MoveAnimationDelayInMilliseconds / _timerInterval));
 
-            _timer.Start();
+            _timerForMove.Start();
         }
     }
 }

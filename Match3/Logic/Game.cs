@@ -52,6 +52,7 @@ namespace Match3
                     if (_grid.TryMatch(_selectedPosition, id))
                     {
                         _window.MarkDeselected(_selectedPosition);
+                        _window.DestroyAnimation();
                         await Task.Delay(Animator.DestroyDelayInMilliseconds);
                         _grid.PushFiguresDown(out List<Vector2> moveFrom, out List<Vector2> moveTo);
                         _window.PushDownAnimation(moveFrom, moveTo);

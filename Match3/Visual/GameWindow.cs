@@ -132,6 +132,23 @@ namespace Match3
             }
         }
 
+        public void DestroyAnimation()
+        {
+            for (int i = 0; i < GridSize; i++)
+            {
+                for (int j = 0; j < GridSize; j++)
+                {
+                    Vector2 position = new Vector2(i, j);
+                    IElement element = _game.GetElement(position);
+
+                    if (element.IsNull)
+                    {
+                        element.Animator.DestroyAnimation(_images[position]);
+                    }
+                }
+            }
+        }
+
         public void MarkSelected(Vector2 id)
         {
             _images[id].BackColor = _selectColor;
