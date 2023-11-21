@@ -48,7 +48,7 @@ namespace Match3
                     {
                         _window.MarkDeselected(_selectedPosition);
                         _window.DestroyAnimation();
-                        await Task.Delay(Animator.BombBoomDelay);
+                        await Task.Delay(Animator.BombBoomDelay + Animator.DestroyDelayInMilliseconds);
                         _window.DestroyAnimation();
                         await Task.Delay(Animator.DestroyDelayInMilliseconds);
                         _window.UpdateVisual();
