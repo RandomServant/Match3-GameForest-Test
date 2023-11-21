@@ -9,6 +9,7 @@ namespace Match3.Visual
         public const int MoveAnimationDelayInMilliseconds = 200;
         public const int PushDownDelayInMilliseconds = 400;
         public const int DestroyDelayInMilliseconds = 280;
+        public const int BombBoomDelay = 250;
         public const int VisualUpdateDelayInMilliseconds = 10;
 
         private const int _timerInterval = 40;
@@ -58,6 +59,8 @@ namespace Match3.Visual
 
         public void DestroyAnimation(PictureBox element)
         {
+            if (_timerForDestroy.Enabled) return;
+
             _destuctableElement = element;
             _currentSize = element.Size;
 
@@ -83,6 +86,8 @@ namespace Match3.Visual
 
         public void MoveAnimation(PictureBox element, Point targetPosition)
         {
+            if (_timerForMove.Enabled) return;
+
             _movableElement = element;
             _currentLocation = element.Location;
             _targetLocation = targetPosition;

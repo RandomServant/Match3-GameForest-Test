@@ -48,7 +48,11 @@ namespace Match3
                     {
                         _window.MarkDeselected(_selectedPosition);
                         _window.DestroyAnimation();
+                        await Task.Delay(Animator.BombBoomDelay);
+                        _window.DestroyAnimation();
                         await Task.Delay(Animator.DestroyDelayInMilliseconds);
+                        _window.UpdateVisual();
+                        await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
                         _grid.PushFiguresDown(out List<Vector2> moveFrom, out List<Vector2> moveTo);
                         _window.PushDownAnimation(moveFrom, moveTo);
                         await Task.Delay(Animator.PushDownDelayInMilliseconds);

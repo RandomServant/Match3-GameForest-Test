@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Match3.Visual;
+using System;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Match3.Logic
 {
@@ -8,8 +10,10 @@ namespace Match3.Logic
     {
         public Bomb(ElementType type, Vector2 position) : base(type, position) { }
 
-        protected override void ActivateBonus(IElement[,] list)
+        protected override async void ActivateBonus(IElement[,] list)
         {
+            await Task.Delay(Animator.BombBoomDelay);
+
             for(int i = -1; i <= 1; i++)
             {
                 if (Position.X + i < 0 || Position.X + i >= GameWindow.GridSize)
