@@ -57,7 +57,7 @@ namespace Match3
             (_elements[x1, y1], _elements[x2, y2]) = (_elements[x2, y2], _elements[x1, y1]);
         }
 
-        private bool ExecuteMatch(Vector2 position, IElement firstElement)
+        private bool ExecuteMatch(Vector2 position, ref IElement firstElement)
         {
             var matchList = GetMatchList(position, firstElement.Type);
 
@@ -176,7 +176,7 @@ namespace Match3
             {
                 for (int j = 0; j < _gridSize; j++)
                 {
-                    if (ExecuteMatch(new Vector2(i, j), _elements[i, j]))
+                    if (ExecuteMatch(new Vector2(i, j), ref _elements[i, j]))
                     {
                         isMatched = true;
                     }
@@ -187,8 +187,8 @@ namespace Match3
 
         public bool TryMatch(Vector2 firstPosition, Vector2 secondPosition)
         {
-            var firstTry = ExecuteMatch(secondPosition, _elements[secondPosition.X, secondPosition.Y]);
-            var secondTry = ExecuteMatch(firstPosition, _elements[firstPosition.X, firstPosition.Y]);
+            var firstTry = ExecuteMatch(secondPosition, ref _elements[secondPosition.X, secondPosition.Y]);
+            var secondTry = ExecuteMatch(firstPosition, ref _elements[firstPosition.X, firstPosition.Y]);
 
             return (firstTry || secondTry);
         }
