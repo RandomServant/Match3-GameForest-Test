@@ -12,6 +12,9 @@ namespace Match3.Visual
     public class Animator
     {
         public const int MoveAnimationDelayInMilliseconds = 300;
+        public const int PushDownDelayInMilliseconds = 500;
+        public const int DestroyDelayInMilliseconds = 500;
+        public const int VisualUpdateDelayInMilliseconds = 100;
 
         private const int _timerInterval = 40;
 

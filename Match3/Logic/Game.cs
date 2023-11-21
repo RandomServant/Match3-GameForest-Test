@@ -48,18 +48,27 @@ namespace Match3
                     SwapElements(id);
                     await Task.Delay(Animator.MoveAnimationDelayInMilliseconds);
                     _window.UpdateVisual();
+                    await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
                     if (_grid.TryMatch(_selectedPosition, id))
                     {
                         _window.MarkDeselected(_selectedPosition);
-                        _grid.PushFiguresDown();
+                        await Task.Delay(Animator.DestroyDelayInMilliseconds);
+                        _grid.PushFiguresDown(out List<Vector2> moveFrom, out List<Vector2> moveTo);
+                        _window.PushDownAnimation(moveFrom, moveTo);
+                        await Task.Delay(Animator.PushDownDelayInMilliseconds);
                         _window.UpdateVisual();
+                        await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
                         _grid.RandomFillGrid();
                         _window.UpdateVisual();
+                        await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
 
                         while (_grid.TryMatchAll())
                         {
-                            _grid.PushFiguresDown();
+                            _grid.PushFiguresDown(out moveFrom, out moveTo);
+                            _window.PushDownAnimation(moveFrom, moveTo);
+                            await Task.Delay(Animator.PushDownDelayInMilliseconds);
                             _window.UpdateVisual();
+                            await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
                             _grid.RandomFillGrid();
                             _window.UpdateVisual();
                         }

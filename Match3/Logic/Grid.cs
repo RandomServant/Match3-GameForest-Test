@@ -193,10 +193,10 @@ namespace Match3
             return (firstTry || secondTry);
         }
 
-        public void PushFiguresDown()
+        public void PushFiguresDown(out List<Vector2> moveFrom, out List<Vector2> moveTo)
         {
-            List<Vector2> moveFrom = new List<Vector2>();
-            List<Vector2> moveTo = new List<Vector2>();
+            moveFrom = new List<Vector2>();
+            moveTo = new List<Vector2>();
 
             for (int i = 0; i < _gridSize; i++)
             {

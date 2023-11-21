@@ -123,6 +123,15 @@ namespace Match3
             second.Animator.MoveAnimation(secondElement, firstElement.Location);
         }
 
+        public void PushDownAnimation(List<Vector2> moveFrom, List<Vector2> moveTo)
+        {
+            for (int i = 0; i < moveFrom.Count; i++)
+            {
+                PictureBox element = _images[moveFrom[i]];
+                _game.GetElement(moveFrom[i]).Animator.MoveAnimation(element, _buttons[moveTo[i]].Location);
+            }
+        }
+
         public void MarkSelected(Vector2 id)
         {
             _images[id].BackColor = _selectColor;
