@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Match3.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,7 @@ namespace Match3
                 {
                     if (_elements[i, j] == null || _elements[i, j].IsNull)
                     {
-                        ElementType randomType = (ElementType)elementTypes.GetValue(_random.Next(elementTypes.Length));
+                        ElementType randomType = (ElementType)elementTypes.GetValue(_random.Next(elementTypes.Length - 1));
 
                         _elements[i, j] = new BaseElement(randomType, new Vector2(i, j));
                     }
@@ -63,7 +64,7 @@ namespace Match3
             if (matchList.Count == 0)
                 return false;
 
-            if (Game.IsInitialized && !TrySetBonus(matchList, firstElement))
+            if (Game.IsInitialized && !TrySetBonus(matchList, ref firstElement))
             {
                 matchList.Add(firstElement);
             }
@@ -72,30 +73,32 @@ namespace Match3
             {
                 element.Destroy(_elements);
             }
+
             return true;
         }
 
-        private bool TrySetBonus(List<IElement> match, IElement elementToBonus)
+        private bool TrySetBonus(List<IElement> match, ref IElement elementToBonus)
         {
-            bool isEnoughForBomb = match.Count >= _matchCountForBomb;
-            bool isEnoughForLine = match.Count == _matchCountForLine;
+            bool isEnoughForBomb = match.Count >= _matchCountForBomb - 1;
+            bool isEnoughForLine = match.Count == _matchCountForLine - 1;
 
             if (isEnoughForBomb)
             {
-                // Создать бомбу
-                return false;
+                elementToBonus = (IElement)new Bomb(elementToBonus);
+
+                return true;
             }
             if (isEnoughForLine)
             {
                 if (match[0].Position.X == elementToBonus.Position.X)
                 {
-                    // Создать вертикальную линию
+                    elementToBonus = (IElement)new VerticalLine(elementToBonus);
                 }
                 else
                 {
-                    // Создать горизонтальную линию
+                    elementToBonus = (IElement)new HorizontalLine(elementToBonus);
                 }
-                return false;
+                return true;
             }
 
             return false;
@@ -111,7 +114,8 @@ namespace Match3
 
             while (horizontalCounter < _gridSize)
             {
-                if (_elements[horizontalCounter, position.Y].Type != type)
+                if (_elements[horizontalCounter, position.Y].Type != type &&
+                    _elements[horizontalCounter, position.Y].Type != ElementType.Bomb)
                     break;
 
                 horizontalLine.Add(_elements[horizontalCounter, position.Y]);
@@ -120,7 +124,8 @@ namespace Match3
 
             while (verticalCounter < _gridSize)
             {
-                if (_elements[position.X, verticalCounter].Type != type)
+                if (_elements[position.X, verticalCounter].Type != type &&
+                    _elements[position.X, verticalCounter].Type != ElementType.Bomb)
                     break;
 
                 verticalLine.Add(_elements[position.X, verticalCounter]);
@@ -132,7 +137,8 @@ namespace Match3
 
             while (horizontalCounter >= 0)
             {
-                if (_elements[horizontalCounter, position.Y].Type != type)
+                if (_elements[horizontalCounter, position.Y].Type != type &&
+                    _elements[horizontalCounter, position.Y].Type != ElementType.Bomb)
                     break;
 
                 horizontalLine.Add(_elements[horizontalCounter, position.Y]);
@@ -141,7 +147,8 @@ namespace Match3
 
             while (verticalCounter >= 0)
             {
-                if (_elements[position.X, verticalCounter].Type != type)
+                if (_elements[position.X, verticalCounter].Type != type &&
+                    _elements[position.X, verticalCounter].Type != ElementType.Bomb)
                     break;
 
                 verticalLine.Add(_elements[position.X, verticalCounter]);

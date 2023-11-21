@@ -12,6 +12,7 @@ namespace Match3
         Green,
         Blue,
         Yellow,
-        Orange
+        Orange,
+        Bomb
     }
 }

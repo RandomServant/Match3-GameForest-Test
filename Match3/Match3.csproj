@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\BaseElement.cs" />
+    <Compile Include="Logic\Bomb.cs" />
     <Compile Include="Logic\ElementType.cs" />
     <Compile Include="Logic\Game.cs" />
     <Compile Include="Logic\GameState.cs" />
@@ -113,10 +114,21 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Visual\Images\Blue.png" />
+    <Content Include="Visual\Images\BlueHorizontal.png" />
+    <Content Include="Visual\Images\BlueVertical.png" />
+    <Content Include="Visual\Images\Bomb.png" />
     <Content Include="Visual\Images\Green.png" />
+    <Content Include="Visual\Images\GreenHorizontal.png" />
+    <Content Include="Visual\Images\GreenVertical.png" />
     <Content Include="Visual\Images\Orange.png" />
+    <Content Include="Visual\Images\OrangeHorizontal.png" />
+    <Content Include="Visual\Images\OrangeVertical.png" />
     <Content Include="Visual\Images\Red.png" />
+    <Content Include="Visual\Images\RedHorizontal.png" />
+    <Content Include="Visual\Images\RedVertical.png" />
     <Content Include="Visual\Images\Yellow.png" />
+    <Content Include="Visual\Images\YellowHorizontal.png" />
+    <Content Include="Visual\Images\YellowVertical.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
