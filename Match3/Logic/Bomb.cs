@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Match3.Logic
 {
@@ -38,15 +39,15 @@ namespace Match3.Logic
         {
             for(int i = -1; i <= 1; i++)
             {
-                if (Position.Y + i < 0 || Position.Y + i >= GameWindow.GridSize)
+                if (Position.X + i < 0 || Position.X + i >= GameWindow.GridSize)
                     continue;
 
                 for (int j = -1; j <= 1; j++) 
                 {
-                    if (Position.X + j < 0 || Position.X + j >= GameWindow.GridSize)
+                    if (Position.Y + j < 0 || Position.Y + j >= GameWindow.GridSize)
                         continue;
 
-                    list[i, j].Destroy(list);
+                    list[Position.X + i, Position.Y + j].Destroy(list);
                 }
             }
         }
