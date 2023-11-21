@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Logic\BaseElement.cs" />
     <Compile Include="Logic\Bomb.cs" />
+    <Compile Include="Logic\Bonus.cs" />
     <Compile Include="Logic\ElementType.cs" />
     <Compile Include="Logic\Game.cs" />
     <Compile Include="Logic\GameState.cs" />

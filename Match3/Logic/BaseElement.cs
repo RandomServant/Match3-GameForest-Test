@@ -1,24 +1,18 @@
 ﻿using Match3.Logic;
 using Match3.Visual;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace Match3
 {
     public class BaseElement : IElement
     {
-        public Animator Animator { get; set; }
+        public Animator Animator { get; }
         public ElementType Type { get; set; }
         public Vector2 Position { get; set; }
 
-        public bool IsNull { get; private set; }
+        public bool IsNull { get; protected set; }
 
         public BaseElement(ElementType type, Vector2 position)
         {
@@ -27,7 +21,7 @@ namespace Match3
             Animator = new Animator();
         }
 
-        public void Destroy(IElement[,] elementList)
+        public virtual void Destroy(IElement[,] elementList)
         {
             if (IsNull) return;
 
@@ -35,7 +29,7 @@ namespace Match3
             IsNull = true;
         }
 
-        public Image GetIconImage()
+        public virtual Image GetIconImage()
         {
             string path;
 

@@ -1,14 +1,7 @@
-﻿using Match3.Logic;
-using Match3.Visual;
+﻿using Match3.Visual;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Match3

@@ -1,10 +1,6 @@
 ﻿using Match3.Logic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Match3
 {
@@ -84,7 +80,7 @@ namespace Match3
 
             if (isEnoughForBomb)
             {
-                elementToBonus = (IElement)new Bomb(elementToBonus);
+                elementToBonus = (IElement)new Bomb(elementToBonus.Type, elementToBonus.Position);
 
                 return true;
             }
@@ -92,11 +88,11 @@ namespace Match3
             {
                 if (match[0].Position.X == elementToBonus.Position.X)
                 {
-                    elementToBonus = (IElement)new VerticalLine(elementToBonus);
+                    elementToBonus = (IElement)new VerticalLine(elementToBonus.Type, elementToBonus.Position);
                 }
                 else
                 {
-                    elementToBonus = (IElement)new HorizontalLine(elementToBonus);
+                    elementToBonus = (IElement)new HorizontalLine(elementToBonus.Type, elementToBonus.Position);
                 }
                 return true;
             }

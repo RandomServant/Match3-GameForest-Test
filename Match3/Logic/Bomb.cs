@@ -1,41 +1,14 @@
-﻿using Match3.Visual;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Match3.Logic
 {
-    public class Bomb : IElement
+    public class Bomb : Bonus
     {
-        public Animator Animator { get; set; }
-        public ElementType Type { get; set; }
-        public Vector2 Position { get; set; }
+        public Bomb(ElementType type, Vector2 position) : base(type, position) { }
 
-        public bool IsNull { get; private set; }
-
-        public Bomb(IElement element)
-        {
-            Position = element.Position;
-            Type = element.Type;
-            Animator = new Animator();
-        }
-
-        public void Destroy(IElement[,] elementList)
-        {
-            if (IsNull)
-                return;
-
-            ScoreCounter.AddScore();
-            IsNull = true;
-            ActivateBonus(elementList);
-        }
-
-        private void ActivateBonus(IElement[,] list)
+        protected override void ActivateBonus(IElement[,] list)
         {
             for(int i = -1; i <= 1; i++)
             {
@@ -52,7 +25,7 @@ namespace Match3.Logic
             }
         }
 
-        public Image GetIconImage()
+        public override Image GetIconImage()
         {
             string path;
 
