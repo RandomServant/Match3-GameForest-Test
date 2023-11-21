@@ -36,7 +36,7 @@ namespace Match3
                 {
                     if (_elements[i, j] == null || _elements[i, j].IsNull)
                     {
-                        ElementType randomType = (ElementType)elementTypes.GetValue(_random.Next(elementTypes.Length - 1));
+                        ElementType randomType = (ElementType)elementTypes.GetValue(_random.Next(elementTypes.Length));
 
                         _elements[i, j] = new BaseElement(randomType, new Vector2(i, j));
                     }
@@ -114,8 +114,7 @@ namespace Match3
 
             while (horizontalCounter < _gridSize)
             {
-                if (_elements[horizontalCounter, position.Y].Type != type &&
-                    _elements[horizontalCounter, position.Y].Type != ElementType.Bomb)
+                if (_elements[horizontalCounter, position.Y].Type != type)
                     break;
 
                 horizontalLine.Add(_elements[horizontalCounter, position.Y]);
@@ -124,8 +123,7 @@ namespace Match3
 
             while (verticalCounter < _gridSize)
             {
-                if (_elements[position.X, verticalCounter].Type != type &&
-                    _elements[position.X, verticalCounter].Type != ElementType.Bomb)
+                if (_elements[position.X, verticalCounter].Type != type)
                     break;
 
                 verticalLine.Add(_elements[position.X, verticalCounter]);
@@ -137,8 +135,7 @@ namespace Match3
 
             while (horizontalCounter >= 0)
             {
-                if (_elements[horizontalCounter, position.Y].Type != type &&
-                    _elements[horizontalCounter, position.Y].Type != ElementType.Bomb)
+                if (_elements[horizontalCounter, position.Y].Type != type)
                     break;
 
                 horizontalLine.Add(_elements[horizontalCounter, position.Y]);
@@ -147,8 +144,7 @@ namespace Match3
 
             while (verticalCounter >= 0)
             {
-                if (_elements[position.X, verticalCounter].Type != type &&
-                    _elements[position.X, verticalCounter].Type != ElementType.Bomb)
+                if (_elements[position.X, verticalCounter].Type != type)
                     break;
 
                 verticalLine.Add(_elements[position.X, verticalCounter]);

@@ -21,7 +21,7 @@ namespace Match3.Logic
         public Bomb(IElement element)
         {
             Position = element.Position;
-            Type = ElementType.Bomb;
+            Type = element.Type;
             Animator = new Animator();
         }
 
@@ -54,8 +54,26 @@ namespace Match3.Logic
 
         public Image GetIconImage()
         {
-            string path = @"..\..\Visual\Images\Bomb.png";
+            string path;
 
+            switch (Type)
+            {
+                case ElementType.Red:
+                    path = @"..\..\Visual\Images\RedBomb.png";
+                    break;
+                case ElementType.Green:
+                    path = @"..\..\Visual\Images\GreenBomb.png";
+                    break;
+                case ElementType.Blue:
+                    path = @"..\..\Visual\Images\BlueBomb.png";
+                    break;
+                case ElementType.Yellow:
+                    path = @"..\..\Visual\Images\YellowBomb.png";
+                    break;
+                default:
+                    path = @"..\..\Visual\Images\OrangeBomb.png";
+                    break;
+            }
             path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
 
             return Image.FromFile(path);
