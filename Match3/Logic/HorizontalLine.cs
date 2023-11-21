@@ -1,19 +1,29 @@
-﻿using System;
+﻿using Match3.Visual;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Match3.Logic
 {
     internal class HorizontalLine : IElement
     {
+        public Animator Animator { get; set; }
         public ElementType Type { get; set; }
         public Vector2 Position { get; set; }
 
         public bool IsNull { get; private set; }
+
+        public HorizontalLine(IElement element)
+        {
+            Position = element.Position;
+            Type = element.Type;
+            Animator = new Animator();
+        }
 
         public void Destroy(IElement[,] elementList)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Match3.Visual;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Match3
 {
     public interface IElement
     {
+        Animator Animator { get; set; }
         ElementType Type { get; set; }
         Vector2 Position { get; set; }
         bool IsNull { get; }

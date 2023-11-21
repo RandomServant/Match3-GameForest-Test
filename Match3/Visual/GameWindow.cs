@@ -16,7 +16,8 @@ namespace Match3
     public partial class GameWindow : Form
     {
         public const int GridSize = 8;
-        private const int _cellGridSize = 65;
+        public const int CellGridSize = 65;
+        private const int _gameDataPanelWidth = 150;
         private Color _selectColor = Color.Aqua;
 
         private readonly Game _game;
@@ -30,8 +31,8 @@ namespace Match3
         {
             InitializeComponent();
 
-            this.Size = new Size(_cellGridSize * (GridSize + 1), 
-                _cellGridSize * (GridSize + 1) + SystemInformation.CaptionHeight);
+            this.Size = new Size(CellGridSize * (GridSize + 1) + _gameDataPanelWidth,
+                CellGridSize * (GridSize + 1) + SystemInformation.CaptionHeight);
 
             _game = new Game(this, GridSize);
 
@@ -61,7 +62,7 @@ namespace Match3
                     PictureBox image = new PictureBox
                     {
                         Image = element.GetIconImage(),
-                        Size = new Size(_cellGridSize, _cellGridSize),
+                        Size = new Size(CellGridSize, CellGridSize),
                         SizeMode = PictureBoxSizeMode.StretchImage,
                         Location = _buttons[position].Location,
                         Enabled = false
@@ -82,7 +83,7 @@ namespace Match3
                 RowCount = GridSize,
                 ColumnCount = GridSize,
 
-                Size = new Size(_cellGridSize * (GridSize + 1), _cellGridSize * (GridSize + 1))
+                Size = new Size(CellGridSize * (GridSize + 1), CellGridSize * (GridSize + 1))
             };
 
             this.Controls.Add(gridLayout);
@@ -95,7 +96,7 @@ namespace Match3
 
                     Button button = new Button
                     {
-                        Size = new Size(_cellGridSize, _cellGridSize),
+                        Size = new Size(CellGridSize, CellGridSize),
                         Tag = position.ToString(),
                     };
                     button.Click += GridClick;
@@ -111,6 +112,15 @@ namespace Match3
 
             Vector2 id = Vector2.StringToVector2(element.Tag);
             _game.SelectElement(id);
+        }
+
+        public void SwapAnimation(IElement first, IElement second)
+        {
+            PictureBox firstElement = _images[first.Position];
+            PictureBox secondElement = _images[second.Position];
+
+            first.Animator.MoveAnimation(firstElement, secondElement.Location);
+            second.Animator.MoveAnimation(secondElement, firstElement.Location);
         }
 
         public void MarkSelected(Vector2 id)

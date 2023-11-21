@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Match3.Visual;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -10,6 +11,7 @@ namespace Match3.Logic
 {
     public class Bomb : IElement
     {
+        public Animator Animator { get; set; }
         public ElementType Type { get; set; }
         public Vector2 Position { get; set; }
 
@@ -19,6 +21,7 @@ namespace Match3.Logic
         {
             Position = element.Position;
             Type = ElementType.Bomb;
+            Animator = new Animator();
         }
 
         public void Destroy(IElement[,] elementList)

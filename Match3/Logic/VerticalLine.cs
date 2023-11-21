@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Match3.Visual;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -10,10 +11,19 @@ namespace Match3.Logic
 {
     public class VerticalLine : IElement
     {
+        public Animator Animator { get; set; }
         public ElementType Type { get; set; }
         public Vector2 Position { get; set; }
 
         public bool IsNull { get; private set; }
+
+        public VerticalLine(IElement element)
+        {
+            Position = element.Position;
+            Type = element.Type;
+            Animator = new Animator();
+        }
+
 
         public void Destroy(IElement[,] elementList)
         {

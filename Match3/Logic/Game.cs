@@ -1,4 +1,5 @@
 ﻿using Match3.Logic;
+using Match3.Visual;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace Match3
 
         public IElement GetElement(Vector2 position) => _grid.GetElement(position);
 
-        public void SelectElement(Vector2 id)
+        public async void SelectElement(Vector2 id)
         {
             if(_gameState == GameState.BeforeFirstClick)
             {
@@ -45,6 +46,7 @@ namespace Match3
                 {
                     _gameState = GameState.Animation;
                     SwapElements(id);
+                    await Task.Delay(Animator.MoveAnimationDelayInMilliseconds);
                     _window.UpdateVisual();
                     if (_grid.TryMatch(_selectedPosition, id))
                     {
@@ -81,6 +83,7 @@ namespace Match3
         private void SwapElements(Vector2 position)
         {
             _grid.SwapElements(_selectedPosition, position);
+            _window.SwapAnimation(GetElement(_selectedPosition), GetElement(position));
         }
 
         public void Initialize()
