@@ -51,9 +51,9 @@
             this.ScoreText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ScoreText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
             this.ScoreText.HideSelection = false;
-            this.ScoreText.Location = new System.Drawing.Point(670, 58);
+            this.ScoreText.Location = new System.Drawing.Point(602, 58);
             this.ScoreText.Name = "ScoreText";
-            this.ScoreText.Size = new System.Drawing.Size(100, 46);
+            this.ScoreText.Size = new System.Drawing.Size(168, 46);
             this.ScoreText.TabIndex = 2;
             this.ScoreText.Text = "0";
             this.ScoreText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
