@@ -1,6 +1,6 @@
 ﻿namespace Match3
 {
-    partial class Form1
+    partial class MenuWindow
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,13 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.PlayButton = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // PlayButton
+            // 
+            this.PlayButton.Location = new System.Drawing.Point(300, 200);
+            this.PlayButton.Name = "PlayButton";
+            this.PlayButton.Size = new System.Drawing.Size(200, 50);
+            this.PlayButton.TabIndex = 0;
+            this.PlayButton.Text = "Play";
+            this.PlayButton.UseVisualStyleBackColor = true;
+            this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
+            // 
+            // MenuWindow
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.PlayButton);
+            this.Name = "MenuWindow";
+            this.Text = "Match3 Menu";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button PlayButton;
     }
 }
 
