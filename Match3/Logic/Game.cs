@@ -44,11 +44,11 @@ namespace Match3
                     await Task.Delay(Animator.MoveAnimationDelayInMilliseconds);
                     _window.UpdateVisual();
                     await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
-                    if (_grid.TryMatch(_selectedPosition, position))
+                    if (_grid.TryMatch(_selectedPosition, position, out List<Bonus> bonuses))
                     {
                         _window.MarkDeselected(_selectedPosition);
                         _window.DestroyAnimation();
-                        await Task.Delay(Animator.BombBoomDelay + Animator.DestroyDelayInMilliseconds);
+                        await Task.Delay(GetDelayTime(bonuses));
                         _window.DestroyAnimation();
                         await Task.Delay(Animator.DestroyDelayInMilliseconds);
                         _window.UpdateVisual();
@@ -62,12 +62,14 @@ namespace Match3
                         _window.UpdateVisual();
                         await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
 
-                        while (_grid.TryMatchAll())
+                        while (_grid.TryMatchAll(out bonuses))
                         {
                             _window.DestroyAnimation();
-                            await Task.Delay(Animator.BombBoomDelay + Animator.DestroyDelayInMilliseconds);
+                            await Task.Delay(GetDelayTime(bonuses));
                             _window.DestroyAnimation();
                             await Task.Delay(Animator.DestroyDelayInMilliseconds);
+                            _window.UpdateVisual();
+                            await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
                             _grid.PushFiguresDown(out moveFrom, out moveTo);
                             _window.PushDownAnimation(moveFrom, moveTo);
                             await Task.Delay(Animator.PushDownDelayInMilliseconds);
@@ -81,6 +83,7 @@ namespace Match3
                     {
                         _window.MarkDeselected(_selectedPosition);
                         SwapElements(position);
+                        await Task.Delay(Animator.MoveAnimationDelayInMilliseconds);
                         _window.UpdateVisual();
                     }
                 }
@@ -101,7 +104,7 @@ namespace Match3
 
         public void Initialize()
         {
-            while (_grid.TryMatchAll())
+            while (_grid.TryMatchAll(out var none))
             {
                 _grid.RandomFillGrid();
             }
@@ -109,5 +112,21 @@ namespace Match3
         }
 
         public void InitializeTimer() => _gameTimer.Initialize();
+
+        private int GetDelayTime(List<Bonus> bonuses)
+        {
+            if (bonuses.Count == 0) 
+                return 0; 
+
+            bool isBomb = false;
+
+            foreach (var bonus in bonuses)
+            {
+                if (bonus is Bomb) 
+                    isBomb = true;
+            }
+
+            return Animator.DestroyDelayInMilliseconds + (isBomb ? Animator.BombBoomDelay : 0);
+        }
     }
 }

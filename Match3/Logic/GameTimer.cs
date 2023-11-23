@@ -7,7 +7,7 @@ namespace Match3.Logic
     {
         private readonly GameWindow _window;
 
-        private int _durrationOfGameInSeconds = 60;
+        private int _durrationOfGameInSeconds = 660;
 
         private Timer _timer;
 

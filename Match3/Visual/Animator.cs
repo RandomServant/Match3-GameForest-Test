@@ -7,12 +7,13 @@ namespace Match3.Visual
     public class Animator
     {
         public const int MoveAnimationDelayInMilliseconds = 200;
-        public const int PushDownDelayInMilliseconds = 400;
+        public const int PushDownDelayInMilliseconds = 200;
         public const int DestroyDelayInMilliseconds = 280;
         public const int BombBoomDelay = 250;
         public const int VisualUpdateDelayInMilliseconds = 10;
 
         private const int _timerInterval = 40;
+        private int _timeMoveDelay;
 
         private Timer _timerForMove;
         private Timer _timerForDestroy;
@@ -77,24 +78,25 @@ namespace Match3.Visual
 
             _movableElement.Location = _currentLocation;
 
-            if (Math.Abs(_targetLocation.X - _currentLocation.X) < MoveAnimationDelayInMilliseconds / _timerInterval &&
-                Math.Abs(_targetLocation.Y - _currentLocation.Y) < MoveAnimationDelayInMilliseconds / _timerInterval)
+            if (Math.Abs(_targetLocation.X - _currentLocation.X) < _timeMoveDelay / _timerInterval &&
+                Math.Abs(_targetLocation.Y - _currentLocation.Y) < _timeMoveDelay / _timerInterval)
             {
                 _timerForMove.Stop();
             }
         }
 
-        public void MoveAnimation(PictureBox element, Point targetPosition)
+        public void MoveAnimation(PictureBox element, Point targetPosition, int time)
         {
             if (_timerForMove.Enabled) return;
 
             _movableElement = element;
             _currentLocation = element.Location;
             _targetLocation = targetPosition;
+            _timeMoveDelay = time;
 
             _moveStep = new Point(
-                (_targetLocation.X - _currentLocation.X) / (MoveAnimationDelayInMilliseconds / _timerInterval),
-                (_targetLocation.Y - _currentLocation.Y) / (MoveAnimationDelayInMilliseconds / _timerInterval));
+                (_targetLocation.X - _currentLocation.X) / (_timeMoveDelay / _timerInterval),
+                (_targetLocation.Y - _currentLocation.Y) / (_timeMoveDelay / _timerInterval));
 
             _timerForMove.Start();
         }

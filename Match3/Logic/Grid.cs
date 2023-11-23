@@ -1,6 +1,7 @@
 ﻿using Match3.Logic;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Match3
 {
@@ -53,7 +54,7 @@ namespace Match3
             (_elements[x1, y1], _elements[x2, y2]) = (_elements[x2, y2], _elements[x1, y1]);
         }
 
-        private bool ExecuteMatch(Vector2 position, ref IElement firstElement)
+        private bool ExecuteMatch(Vector2 position, ref IElement firstElement, ref List<Bonus> bonuses)
         {
             var matchList = GetMatchList(position, firstElement.Type);
 
@@ -67,6 +68,9 @@ namespace Match3
 
             foreach (var element in matchList)
             {
+                if (element is Bonus)
+                    bonuses.Add((Bonus)element);
+
                 element.Destroy(_elements);
             }
 
@@ -75,8 +79,8 @@ namespace Match3
 
         private bool TrySetBonus(List<IElement> match, ref IElement elementToBonus)
         {
-            bool isEnoughForBomb = match.Count >= _matchCountForBomb;
-            bool isEnoughForLine = match.Count == _matchCountForLine;
+            bool isEnoughForBomb = match.Count >= _matchCountForBomb - 1;
+            bool isEnoughForLine = match.Count == _matchCountForLine - 1;
 
             if (isEnoughForBomb)
             {
@@ -102,8 +106,8 @@ namespace Match3
 
         private List<IElement> GetMatchList(Vector2 position, ElementType type)
         {
-            int horizontalCounter = position.X;
-            int verticalCounter = position.Y;
+            int horizontalCounter = position.X + 1;
+            int verticalCounter = position.Y + 1;
 
             var verticalLine = new List<IElement>();
             var horizontalLine = new List<IElement>();
@@ -147,11 +151,11 @@ namespace Match3
                 verticalCounter--;
             }
 
-            if (verticalLine.Count <= 2)
+            if (verticalLine.Count < 2)
             {
                 verticalLine.Clear();
             }
-            if (horizontalLine.Count <= 2)
+            if (horizontalLine.Count < 2)
             {
                 horizontalLine.Clear();
             }
@@ -160,15 +164,17 @@ namespace Match3
             return verticalLine;
         }
 
-        public bool TryMatchAll()
+        public bool TryMatchAll(out List<Bonus> bonuses)
         {
+            bonuses = new List<Bonus>();
+
             bool isMatched = false;
 
             for (int i = 0; i < _gridSize; i++)
             {
                 for (int j = 0; j < _gridSize; j++)
                 {
-                    if (ExecuteMatch(new Vector2(i, j), ref _elements[i, j]))
+                    if (ExecuteMatch(new Vector2(i, j), ref _elements[i, j], ref bonuses))
                     {
                         isMatched = true;
                     }
@@ -177,10 +183,12 @@ namespace Match3
             return isMatched;
         }
 
-        public bool TryMatch(Vector2 firstPosition, Vector2 secondPosition)
+        public bool TryMatch(Vector2 firstPosition, Vector2 secondPosition, out List<Bonus> bonuses)
         {
-            var firstTry = ExecuteMatch(secondPosition, ref _elements[secondPosition.X, secondPosition.Y]);
-            var secondTry = ExecuteMatch(firstPosition, ref _elements[firstPosition.X, firstPosition.Y]);
+            bonuses = new List<Bonus>();
+
+            var firstTry = ExecuteMatch(secondPosition, ref _elements[secondPosition.X, secondPosition.Y], ref bonuses);
+            var secondTry = ExecuteMatch(firstPosition, ref _elements[firstPosition.X, firstPosition.Y], ref bonuses);
 
             return (firstTry || secondTry);
         }

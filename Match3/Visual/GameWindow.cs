@@ -112,8 +112,8 @@ namespace Match3
             PictureBox firstElement = _images[first.Position];
             PictureBox secondElement = _images[second.Position];
 
-            first.Animator.MoveAnimation(firstElement, secondElement.Location);
-            second.Animator.MoveAnimation(secondElement, firstElement.Location);
+            first.Animator.MoveAnimation(firstElement, secondElement.Location, Animator.MoveAnimationDelayInMilliseconds);
+            second.Animator.MoveAnimation(secondElement, firstElement.Location, Animator.MoveAnimationDelayInMilliseconds);
         }
 
         public void PushDownAnimation(List<Vector2> moveFrom, List<Vector2> moveTo)
@@ -121,7 +121,8 @@ namespace Match3
             for (int i = 0; i < moveFrom.Count; i++)
             {
                 PictureBox element = _images[moveFrom[i]];
-                _game.GetElement(moveFrom[i]).Animator.MoveAnimation(element, _buttons[moveTo[i]].Location);
+                _game.GetElement(moveFrom[i]).Animator.MoveAnimation(element, 
+                    _buttons[moveTo[i]].Location, Animator.PushDownDelayInMilliseconds);
             }
         }
 
