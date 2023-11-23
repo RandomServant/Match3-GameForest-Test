@@ -95,10 +95,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -114,22 +117,5 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="Visual\Images\Blue.png" />
-    <Content Include="Visual\Images\BlueBomb.png" />
-    <Content Include="Visual\Images\BlueHorizontal.png" />
-    <Content Include="Visual\Images\Green.png" />
-    <Content Include="Visual\Images\GreenBomb.png" />
-    <Content Include="Visual\Images\GreenHorizontal.png" />
-    <Content Include="Visual\Images\Orange.png" />
-    <Content Include="Visual\Images\OrangeBomb.png" />
-    <Content Include="Visual\Images\OrangeHorizontal.png" />
-    <Content Include="Visual\Images\Red.png" />
-    <Content Include="Visual\Images\RedBomb.png" />
-    <Content Include="Visual\Images\RedHorizontal.png" />
-    <Content Include="Visual\Images\Yellow.png" />
-    <Content Include="Visual\Images\YellowBomb.png" />
-    <Content Include="Visual\Images\YellowHorizontal.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

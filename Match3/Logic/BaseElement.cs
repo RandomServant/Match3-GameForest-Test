@@ -31,29 +31,28 @@ namespace Match3
 
         public virtual Image GetIconImage()
         {
-            string path;
+            Image image;
 
             switch(Type)
             {
                 case ElementType.Red:
-                    path = @"..\..\Visual\Images\Red.png";
+                    image = Properties.Resources.Red;
                     break;
                 case ElementType.Green:
-                    path = @"..\..\Visual\Images\Green.png";
+                    image = Properties.Resources.Green;
                     break;
                 case ElementType.Blue:
-                    path = @"..\..\Visual\Images\Blue.png";
+                    image = Properties.Resources.Blue;
                     break;
                 case ElementType.Yellow:
-                    path = @"..\..\Visual\Images\Yellow.png";
+                    image = Properties.Resources.Yellow;
                     break;
                 default:
-                    path = @"..\..\Visual\Images\Orange.png";
+                    image = Properties.Resources.Orange;
                     break;
             }
-            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
 
-            return Image.FromFile(path);
+            return image;
         }
 
         public override string ToString()

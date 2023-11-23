@@ -10,29 +10,28 @@ namespace Match3.Logic
 
         public override Image GetIconImage()
         {
-            string path;
+            Image image;
 
             switch (Type)
             {
                 case ElementType.Red:
-                    path = @"..\..\Visual\Images\RedHorizontal.png";
+                    image = Properties.Resources.RedHorizontal;
                     break;
                 case ElementType.Green:
-                    path = @"..\..\Visual\Images\GreenHorizontal.png";
+                    image = Properties.Resources.GreenHorizontal;
                     break;
                 case ElementType.Blue:
-                    path = @"..\..\Visual\Images\BlueHorizontal.png";
+                    image = Properties.Resources.BlueHorizontal;
                     break;
                 case ElementType.Yellow:
-                    path = @"..\..\Visual\Images\YellowHorizontal.png";
+                    image = Properties.Resources.YellowHorizontal;
                     break;
                 default:
-                    path = @"..\..\Visual\Images\OrangeHorizontal.png";
+                    image = Properties.Resources.OrangeHorizontal;
                     break;
             }
-            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
 
-            return Image.FromFile(path);
+            return image;
         }
     }
 }
