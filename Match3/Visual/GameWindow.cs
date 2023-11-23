@@ -142,14 +142,14 @@ namespace Match3
             }
         }
 
-        public void MarkSelected(Vector2 id)
+        public void MarkSelected(Vector2 position)
         {
-            _images[id].BackColor = _selectColor;
+            _images[position].BackColor = _selectColor;
         }
 
-        public void MarkDeselected(Vector2 id)
+        public void MarkDeselected(Vector2 position)
         {
-            _images[id].BackColor = this.BackColor;
+            _images[position].BackColor = this.BackColor;
         }
 
         public void UpdateTimerText(string time)

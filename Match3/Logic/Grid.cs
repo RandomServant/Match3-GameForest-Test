@@ -75,12 +75,12 @@ namespace Match3
 
         private bool TrySetBonus(List<IElement> match, ref IElement elementToBonus)
         {
-            bool isEnoughForBomb = match.Count >= _matchCountForBomb - 1;
-            bool isEnoughForLine = match.Count == _matchCountForLine - 1;
+            bool isEnoughForBomb = match.Count >= _matchCountForBomb;
+            bool isEnoughForLine = match.Count == _matchCountForLine;
 
             if (isEnoughForBomb)
             {
-                elementToBonus = (IElement)new Bomb(elementToBonus.Type, elementToBonus.Position);
+                elementToBonus = new Bomb(elementToBonus.Type, elementToBonus.Position);
 
                 return true;
             }
@@ -88,11 +88,11 @@ namespace Match3
             {
                 if (match[0].Position.X == elementToBonus.Position.X)
                 {
-                    elementToBonus = (IElement)new VerticalLine(elementToBonus.Type, elementToBonus.Position);
+                    elementToBonus = new VerticalLine(elementToBonus.Type, elementToBonus.Position);
                 }
                 else
                 {
-                    elementToBonus = (IElement)new HorizontalLine(elementToBonus.Type, elementToBonus.Position);
+                    elementToBonus = new HorizontalLine(elementToBonus.Type, elementToBonus.Position);
                 }
                 return true;
             }
@@ -102,8 +102,8 @@ namespace Match3
 
         private List<IElement> GetMatchList(Vector2 position, ElementType type)
         {
-            int horizontalCounter = position.X + 1;
-            int verticalCounter = position.Y + 1;
+            int horizontalCounter = position.X;
+            int verticalCounter = position.Y;
 
             var verticalLine = new List<IElement>();
             var horizontalLine = new List<IElement>();
@@ -147,11 +147,11 @@ namespace Match3
                 verticalCounter--;
             }
 
-            if (verticalLine.Count < 2)
+            if (verticalLine.Count <= 2)
             {
                 verticalLine.Clear();
             }
-            if (horizontalLine.Count < 2)
+            if (horizontalLine.Count <= 2)
             {
                 horizontalLine.Clear();
             }

@@ -27,24 +27,24 @@ namespace Match3
 
         public IElement GetElement(Vector2 position) => _grid.GetElement(position);
 
-        public async void SelectElement(Vector2 id)
+        public async void SelectElement(Vector2 position)
         {
             if(_gameState == GameState.BeforeFirstClick)
             {
-                _selectedPosition = id;
-                _window.MarkSelected(id);
+                _selectedPosition = position;
+                _window.MarkSelected(position);
                 _gameState = GameState.AfterFirstClick;
             }
             else if(_gameState == GameState.AfterFirstClick)
             {
-                if(_selectedPosition.IsNearby(id))
+                if(_selectedPosition.IsNearby(position))
                 {
                     _gameState = GameState.Animation;
-                    SwapElements(id);
+                    SwapElements(position);
                     await Task.Delay(Animator.MoveAnimationDelayInMilliseconds);
                     _window.UpdateVisual();
                     await Task.Delay(Animator.VisualUpdateDelayInMilliseconds);
-                    if (_grid.TryMatch(_selectedPosition, id))
+                    if (_grid.TryMatch(_selectedPosition, position))
                     {
                         _window.MarkDeselected(_selectedPosition);
                         _window.DestroyAnimation();
@@ -80,7 +80,7 @@ namespace Match3
                     else
                     {
                         _window.MarkDeselected(_selectedPosition);
-                        SwapElements(id);
+                        SwapElements(position);
                         _window.UpdateVisual();
                     }
                 }
