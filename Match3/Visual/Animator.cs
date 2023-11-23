@@ -10,6 +10,7 @@ namespace Match3.Visual
         public const int PushDownDelayInMilliseconds = 200;
         public const int DestroyDelayInMilliseconds = 280;
         public const int BombBoomDelay = 250;
+        public const int LineDestroyDelay = 250;
         public const int VisualUpdateDelayInMilliseconds = 10;
 
         private const int _timerInterval = 40;

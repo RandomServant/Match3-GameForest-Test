@@ -1,4 +1,5 @@
-﻿using Match3.Visual;
+﻿using Match3.Logic;
+using Match3.Visual;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -146,6 +147,36 @@ namespace Match3
                     }
                 }
             }
+        }
+        public void DestroyersFlyAnimation(IElement bonus)
+        {
+            Point targetPosition;
+            Point oppositeЕargetPosition;
+
+            if (bonus is HorizontalLine)
+            {
+                targetPosition = new Point(_gridLayout.Width, _images[bonus.Position].Location.Y);
+                oppositeЕargetPosition = new Point(-CellGridSize, _images[bonus.Position].Location.Y);
+            }
+            else if (bonus is VerticalLine)
+            {
+                targetPosition = new Point(_images[bonus.Position].Location.X, _gridLayout.Height);
+                oppositeЕargetPosition = new Point(_images[bonus.Position].Location.X, -CellGridSize);
+            }
+            else
+                return;
+
+            Destroyer firstDestroyer = new Destroyer(_images[bonus.Position].Location);
+            Destroyer secondDestroyer = new Destroyer(_images[bonus.Position].Location);
+
+            this.Controls.Add(firstDestroyer);
+            this.Controls.Add(secondDestroyer);
+
+            firstDestroyer.BringToFront();
+            secondDestroyer.BringToFront();
+
+            firstDestroyer.Animator.MoveAnimation(firstDestroyer, targetPosition, Animator.LineDestroyDelay);
+            secondDestroyer.Animator.MoveAnimation(secondDestroyer, oppositeЕargetPosition, Animator.LineDestroyDelay);
         }
 
         public void MarkSelected(Vector2 position)

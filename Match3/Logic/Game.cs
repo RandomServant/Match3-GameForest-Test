@@ -2,6 +2,7 @@
 using Match3.Visual;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Match3
 {
@@ -48,6 +49,13 @@ namespace Match3
                     {
                         _window.MarkDeselected(_selectedPosition);
                         _window.DestroyAnimation();
+                        foreach(var bonus in bonuses)
+                        {
+                            if(bonus is Line)
+                            {
+                                _window.DestroyersFlyAnimation(bonus);
+                            }
+                        }
                         await Task.Delay(GetDelayTime(bonuses));
                         _window.DestroyAnimation();
                         await Task.Delay(Animator.DestroyDelayInMilliseconds);
@@ -65,6 +73,13 @@ namespace Match3
                         while (_grid.TryMatchAll(out bonuses))
                         {
                             _window.DestroyAnimation();
+                            foreach (var bonus in bonuses)
+                            {
+                                if (bonus is Line)
+                                {
+                                    _window.DestroyersFlyAnimation(bonus);
+                                }
+                            }
                             await Task.Delay(GetDelayTime(bonuses));
                             _window.DestroyAnimation();
                             await Task.Delay(Animator.DestroyDelayInMilliseconds);
