@@ -3,6 +3,7 @@ using Match3.Visual;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Match3
@@ -177,6 +178,15 @@ namespace Match3
 
             firstDestroyer.Animator.MoveAnimation(firstDestroyer, targetPosition, Animator.LineDestroyDelay);
             secondDestroyer.Animator.MoveAnimation(secondDestroyer, oppositeЕargetPosition, Animator.LineDestroyDelay);
+
+            DestroyersDestroy(firstDestroyer);
+            DestroyersDestroy(secondDestroyer);
+        }
+
+        private async void DestroyersDestroy(Destroyer destroyer)
+        {
+            await Task.Delay(Animator.LineDestroyDelay);
+            this.Controls.Remove(destroyer);
         }
 
         public void MarkSelected(Vector2 position)
