@@ -20,6 +20,7 @@ namespace Match3.Visual
         private void GameOveOkey_Click(object sender, EventArgs e)
         {
             MenuWindow.Instance.Show();
+            GameWindow.Instance.Close();
             this.Close();
         }
     }

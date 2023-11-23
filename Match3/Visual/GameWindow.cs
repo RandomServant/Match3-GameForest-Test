@@ -8,6 +8,8 @@ namespace Match3
 {
     public partial class GameWindow : Form
     {
+        public static GameWindow Instance;
+
         public const int GridSize = 8;
         public const int CellGridSize = 65;
         private const int _gameDataPanelWidth = 150;
@@ -15,6 +17,7 @@ namespace Match3
 
         private readonly Game _game;
 
+        private TableLayoutPanel _gridLayout;
         private readonly Dictionary<Vector2, Button> _buttons;
         private readonly Dictionary<Vector2, PictureBox> _images;
 
@@ -23,6 +26,8 @@ namespace Match3
         public GameWindow()
         {
             InitializeComponent();
+
+            Instance = this;
 
             this.Size = new Size(CellGridSize * (GridSize + 1) + _gameDataPanelWidth,
                 CellGridSize * (GridSize + 1) + SystemInformation.CaptionHeight);
@@ -71,7 +76,7 @@ namespace Match3
 
         private void CreateGridLayout()
         {
-            TableLayoutPanel gridLayout = new TableLayoutPanel
+            _gridLayout = new TableLayoutPanel
             {
                 RowCount = GridSize,
                 ColumnCount = GridSize,
@@ -79,7 +84,7 @@ namespace Match3
                 Size = new Size(CellGridSize * (GridSize + 1), CellGridSize * (GridSize + 1))
             };
 
-            this.Controls.Add(gridLayout);
+            this.Controls.Add(_gridLayout);
 
             for (int i = 0; i < GridSize; i++)
             {
@@ -94,7 +99,7 @@ namespace Match3
                     };
                     button.Click += GridClick;
 
-                    gridLayout.Controls.Add(button, i, j);
+                    _gridLayout.Controls.Add(button, i, j);
                     _buttons[position] = button;
                 }
             }
@@ -165,8 +170,8 @@ namespace Match3
         public void GameOver()
         {
             GameOverWindow gameOverWindow = new GameOverWindow();
+            _gridLayout.Enabled = false;
             gameOverWindow.Show();
-            this.Close();
         }
     }
 }

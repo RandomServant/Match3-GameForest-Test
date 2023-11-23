@@ -54,6 +54,10 @@ namespace Match3
             (_elements[x1, y1], _elements[x2, y2]) = (_elements[x2, y2], _elements[x1, y1]);
         }
 
+        /// <summary>
+        /// Пытается вызвать матч, предполагает появление бонуса при возможности
+        /// </summary>
+        /// <returns>Возвращает true, если есть матч, false в противном случае</returns>
         private bool ExecuteMatch(Vector2 position, ref IElement firstElement, ref List<Bonus> bonuses)
         {
             var matchList = GetMatchList(position, firstElement.Type);
@@ -77,6 +81,10 @@ namespace Match3
             return true;
         }
 
+        /// <summary>
+        /// Пытается вызвать матч, предполагает, что бонус не должен появиться
+        /// </summary>
+        /// <returns>Возвращает true, если есть матч, false в противном случае</returns>
         private bool ExecuteMatch(Vector2 position, IElement firstElement, ref List<Bonus> bonuses)
         {
             var matchList = GetMatchList(position, firstElement.Type);
