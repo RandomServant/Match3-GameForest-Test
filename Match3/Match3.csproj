@@ -57,6 +57,7 @@
     <Compile Include="Logic\HorizontalLine.cs" />
     <Compile Include="Logic\IElement.cs" />
     <Compile Include="Logic\GameTimer.cs" />
+    <Compile Include="Logic\Line.cs" />
     <Compile Include="Logic\ScoreCounter.cs" />
     <Compile Include="Logic\VerticalLine.cs" />
     <Compile Include="Visual\Animator.cs" />

@@ -65,6 +65,8 @@ namespace Match3
                         while (_grid.TryMatchAll())
                         {
                             _window.DestroyAnimation();
+                            await Task.Delay(Animator.BombBoomDelay + Animator.DestroyDelayInMilliseconds);
+                            _window.DestroyAnimation();
                             await Task.Delay(Animator.DestroyDelayInMilliseconds);
                             _grid.PushFiguresDown(out moveFrom, out moveTo);
                             _window.PushDownAnimation(moveFrom, moveTo);

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Match3.Logic
 {
-    public class VerticalLine : Bonus
+    public class VerticalLine : Line
     {
         public VerticalLine(ElementType type, Vector2 position) : base(type, position) { }
 
@@ -18,29 +18,11 @@ namespace Match3.Logic
 
         public override Image GetIconImage()
         {
-            string path;
+            Image image = base.GetIconImage();
 
-            switch (Type)
-            {
-                case ElementType.Red:
-                    path = @"..\..\Visual\Images\RedVertical.png";
-                    break;
-                case ElementType.Green:
-                    path = @"..\..\Visual\Images\GreenVertical.png";
-                    break;
-                case ElementType.Blue:
-                    path = @"..\..\Visual\Images\BlueVertical.png";
-                    break;
-                case ElementType.Yellow:
-                    path = @"..\..\Visual\Images\YellowVertical.png";
-                    break;
-                default:
-                    path = @"..\..\Visual\Images\OrangeVertical.png";
-                    break;
-            }
-            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+            image.RotateFlip(RotateFlipType.Rotate90FlipNone);
 
-            return Image.FromFile(path);
+            return image;
         }
     }
 }
