@@ -134,14 +134,20 @@ namespace Match3
                 return 0; 
 
             bool isBomb = false;
+            bool isLine = false;
 
             foreach (var bonus in bonuses)
             {
                 if (bonus is Bomb) 
                     isBomb = true;
+                if (bonus is Line)
+                    isLine = true;
             }
 
-            return Animator.DestroyDelayInMilliseconds + (isBomb ? Animator.BombBoomDelay : 0);
+            return Animator.DestroyDelayInMilliseconds + 
+                (isBomb && isLine ? 
+                (Animator.BombBoomDelay > Animator.LineDestroyDelay ? Animator.BombBoomDelay : Animator.LineDestroyDelay) : 
+                (isBomb ? Animator.BombBoomDelay : (isLine ? Animator.LineDestroyDelay : 0)));
         }
     }
 }
