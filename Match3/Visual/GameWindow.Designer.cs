@@ -29,17 +29,16 @@
         private void InitializeComponent()
         {
             this.TimerText = new System.Windows.Forms.Label();
-            this.ScoreText = new System.Windows.Forms.TextBox();
+            this.ScoreText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TimerText
             // 
             this.TimerText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TimerText.AutoSize = true;
             this.TimerText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.TimerText.Location = new System.Drawing.Point(706, 9);
+            this.TimerText.Location = new System.Drawing.Point(593, 9);
             this.TimerText.Name = "TimerText";
-            this.TimerText.Size = new System.Drawing.Size(64, 46);
+            this.TimerText.Size = new System.Drawing.Size(177, 46);
             this.TimerText.TabIndex = 0;
             this.TimerText.Text = "60";
             this.TimerText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -47,16 +46,13 @@
             // ScoreText
             // 
             this.ScoreText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScoreText.BackColor = System.Drawing.SystemColors.Control;
-            this.ScoreText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ScoreText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.ScoreText.HideSelection = false;
-            this.ScoreText.Location = new System.Drawing.Point(602, 58);
+            this.ScoreText.Location = new System.Drawing.Point(593, 55);
             this.ScoreText.Name = "ScoreText";
-            this.ScoreText.Size = new System.Drawing.Size(168, 46);
-            this.ScoreText.TabIndex = 2;
+            this.ScoreText.Size = new System.Drawing.Size(177, 46);
+            this.ScoreText.TabIndex = 3;
             this.ScoreText.Text = "0";
-            this.ScoreText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ScoreText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // GameWindow
             // 
@@ -68,13 +64,12 @@
             this.Name = "GameWindow";
             this.Text = "Match3 Game";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Label TimerText;
-        private System.Windows.Forms.TextBox ScoreText;
+        private System.Windows.Forms.Label ScoreText;
     }
 }
