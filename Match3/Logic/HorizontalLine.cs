@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using Match3.Visual;
+using System.Drawing;
+using System.Threading.Tasks;
 
 namespace Match3.Logic
 {
@@ -7,8 +9,10 @@ namespace Match3.Logic
 
         public HorizontalLine(ElementType type, Vector2 position) : base(type, position) { }
 
-        protected override void ActivateBonus(IElement[,] elementList)
+        protected override async void ActivateBonus(IElement[,] elementList)
         {
+            await Task.Delay(Animator.LineDestroyDelay);
+
             for (int i = 0; i < GameWindow.GridSize; i++)
             {
                 elementList[i, Position.Y].Destroy(elementList);
