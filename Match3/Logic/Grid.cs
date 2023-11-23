@@ -77,6 +77,29 @@ namespace Match3
             return true;
         }
 
+        private bool ExecuteMatch(Vector2 position, IElement firstElement, ref List<Bonus> bonuses)
+        {
+            var matchList = GetMatchList(position, firstElement.Type);
+
+            if (matchList.Count == 0)
+                return false;
+
+            if (Game.IsInitialized)
+            {
+                matchList.Add(firstElement);
+            }
+
+            foreach (var element in matchList)
+            {
+                if (element is Bonus)
+                    bonuses.Add((Bonus)element);
+
+                element.Destroy(_elements);
+            }
+
+            return true;
+        }
+
         private bool TrySetBonus(List<IElement> match, ref IElement elementToBonus)
         {
             bool isEnoughForBomb = match.Count >= _matchCountForBomb - 1;
@@ -174,7 +197,7 @@ namespace Match3
             {
                 for (int j = 0; j < _gridSize; j++)
                 {
-                    if (ExecuteMatch(new Vector2(i, j), ref _elements[i, j], ref bonuses))
+                    if (ExecuteMatch(new Vector2(i, j), _elements[i, j], ref bonuses))
                     {
                         isMatched = true;
                     }
