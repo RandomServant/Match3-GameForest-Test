@@ -31,29 +31,28 @@ namespace Match3.Logic
 
         public override Image GetIconImage()
         {
-            string path;
+            Image image;
 
             switch (Type)
             {
                 case ElementType.Red:
-                    path = @"..\..\Visual\Images\RedBomb.png";
+                    image = Properties.Resources.RedBomb;
                     break;
                 case ElementType.Green:
-                    path = @"..\..\Visual\Images\GreenBomb.png";
+                    image = Properties.Resources.GreenBomb;
                     break;
                 case ElementType.Blue:
-                    path = @"..\..\Visual\Images\BlueBomb.png";
+                    image = Properties.Resources.BlueBomb;
                     break;
                 case ElementType.Yellow:
-                    path = @"..\..\Visual\Images\YellowBomb.png";
+                    image = Properties.Resources.YellowBomb;
                     break;
                 default:
-                    path = @"..\..\Visual\Images\OrangeBomb.png";
+                    image = Properties.Resources.OrangeBomb;
                     break;
             }
-            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
 
-            return Image.FromFile(path);
+            return image;
         }
     }
 }
